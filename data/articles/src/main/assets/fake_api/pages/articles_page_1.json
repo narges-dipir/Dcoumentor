@@ -1,0 +1,12 @@
+{
+  "cursor": null,
+  "nextCursor": "5",
+  "limit": 5,
+  "items": [
+    {"articleNumber": 1000001, "articleName": "Red Apple", "count": 22},
+    {"articleNumber": 1000002, "articleName": "Orange Juice", "count": null},
+    {"articleNumber": 1000003, "articleName": "Whole Wheat Bread", "count": 9},
+    {"articleNumber": 1000004, "articleName": "Greek Yogurt", "count": null},
+    {"articleNumber": 1000005, "articleName": "Roasted Coffee Beans", "count": 57}
+  ]
+}
