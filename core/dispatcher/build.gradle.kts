@@ -1,23 +1,16 @@
 plugins {
-    alias(libs.plugins.android.library)
+    id("challenge.android.library")
 }
 
 android {
     namespace = "app.narges.documentor.core.dispatcher"
-    compileSdk {
-        version = release(36)
-    }
-
-    defaultConfig {
-        minSdk = 24
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 dependencies {
-    implementation(project(":core:common"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.hilt.android)
+    implementation(libs.javax.inject)
+    compileOnly(libs.hilt.android.testing)
+
+    testImplementation(libs.hilt.android.testing)
 }

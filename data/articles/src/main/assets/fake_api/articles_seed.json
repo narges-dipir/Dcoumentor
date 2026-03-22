@@ -1,0 +1,64 @@
+{
+  "articles": [
+    {
+      "articleNumber": 1000001,
+      "articleName": "Red Apple",
+      "count": 22
+    },
+    {
+      "articleNumber": 1000002,
+      "articleName": "Orange Juice",
+      "count": null
+    },
+    {
+      "articleNumber": 1000003,
+      "articleName": "Whole Wheat Bread",
+      "count": 9
+    },
+    {
+      "articleNumber": 1000004,
+      "articleName": "Greek Yogurt",
+      "count": null
+    },
+    {
+      "articleNumber": 1000005,
+      "articleName": "Roasted Coffee Beans",
+      "count": 57
+    },
+    {
+      "articleNumber": 1000006,
+      "articleName": "Sparkling Water",
+      "count": 120
+    },
+    {
+      "articleNumber": 1000007,
+      "articleName": "Pasta Penne",
+      "count": null
+    },
+    {
+      "articleNumber": 1000008,
+      "articleName": "Tomato Sauce",
+      "count": 48
+    },
+    {
+      "articleNumber": 1000009,
+      "articleName": "Cheddar Cheese",
+      "count": 13
+    },
+    {
+      "articleNumber": 1000010,
+      "articleName": "Frozen Peas",
+      "count": null
+    },
+    {
+      "articleNumber": 1000011,
+      "articleName": "Dark Chocolate",
+      "count": 30
+    },
+    {
+      "articleNumber": 1000012,
+      "articleName": "Olive Oil",
+      "count": 7
+    }
+  ]
+}

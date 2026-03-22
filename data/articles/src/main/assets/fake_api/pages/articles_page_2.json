@@ -1,0 +1,12 @@
+{
+  "cursor": "5",
+  "nextCursor": "10",
+  "limit": 5,
+  "items": [
+    {"articleNumber": 1000006, "articleName": "Sparkling Water", "count": 120},
+    {"articleNumber": 1000007, "articleName": "Pasta Penne", "count": null},
+    {"articleNumber": 1000008, "articleName": "Tomato Sauce", "count": 48},
+    {"articleNumber": 1000009, "articleName": "Cheddar Cheese", "count": 13},
+    {"articleNumber": 1000010, "articleName": "Frozen Peas", "count": null}
+  ]
+}
