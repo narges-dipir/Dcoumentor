@@ -1,4 +1,4 @@
-package app.narges.documentor.core.model
+package app.narges.documentor.core.model.article
 
 data class ArticleCursorPage(
     val cursor: String?,

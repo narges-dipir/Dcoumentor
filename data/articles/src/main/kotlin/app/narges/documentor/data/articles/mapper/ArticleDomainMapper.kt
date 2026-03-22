@@ -1,7 +1,7 @@
 package app.narges.documentor.data.articles.mapper
 
-import app.narges.documentor.core.model.Article
-import app.narges.documentor.core.model.ArticleCursorPage
+import app.narges.documentor.core.model.article.Article
+import app.narges.documentor.core.model.article.ArticleCursorPage
 import app.narges.documentor.data.articles.model.ArticleCursorPageResponse
 import app.narges.documentor.data.articles.model.ArticleDTO
 
