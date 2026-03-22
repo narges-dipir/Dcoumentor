@@ -13,4 +13,9 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
     implementation(project(":domain:articles"))
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    testImplementation(project(":core:dispatcher"))
+    testImplementation(libs.kotlinx.coroutines.test)
 }
