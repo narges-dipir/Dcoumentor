@@ -6,8 +6,8 @@ import app.narges.documentor.core.common.policy.RetryPolicy
 import app.narges.documentor.core.common.policy.incrementalRetryDelayMs
 import app.narges.documentor.core.common.policy.isRetryable
 import app.narges.documentor.core.dispatcher.IoDispatcher
-import app.narges.documentor.core.model.Article
-import app.narges.documentor.core.model.ArticleCursorPage
+import app.narges.documentor.core.model.article.Article
+import app.narges.documentor.core.model.article.ArticleCursorPage
 import app.narges.documentor.core.result.ErrorState
 import app.narges.documentor.core.result.ResultState
 import app.narges.documentor.data.articles.api.ArticlesApi

@@ -1,7 +1,7 @@
 package app.narges.documentor.domain.articles.repository
 
-import app.narges.documentor.core.model.Article
-import app.narges.documentor.core.model.ArticleCursorPage
+import app.narges.documentor.core.model.article.Article
+import app.narges.documentor.core.model.article.ArticleCursorPage
 import app.narges.documentor.core.result.ResultState
 import kotlinx.coroutines.flow.Flow
 
