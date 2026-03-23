@@ -3,6 +3,11 @@ package app.narges.documentor.data.articles.fake
 import app.narges.documentor.data.articles.model.CreateArticleRequest
 import app.narges.documentor.data.articles.model.UpdateArticleRequest
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -63,6 +68,32 @@ class FakeArticleBackendTest {
         val loaded = backend.getArticle(1000002)
         assertEquals("Orange Juice Premium", loaded.articleName)
         assertEquals(77, loaded.count)
+    }
+
+    @Test
+    fun `create and update emit sync invalidation`() = runTest {
+        val backend = FakeArticleBackend(seedJson = seedJson(), gson = gson)
+
+        val firstInvalidation = async(start = CoroutineStart.UNDISPATCHED) {
+            withTimeout(1_000) { FakeArticlesSyncInvalidationBus.invalidations.first() }
+        }
+        backend.createArticle(
+            CreateArticleRequest(
+                articleNumber = 1000006,
+                articleName = "Fresh Milk",
+                count = null,
+            ),
+        )
+        firstInvalidation.await()
+
+        val secondInvalidation = async(start = CoroutineStart.UNDISPATCHED) {
+            withTimeout(1_000) { FakeArticlesSyncInvalidationBus.invalidations.first() }
+        }
+        backend.updateArticle(
+            articleNumber = 1000002,
+            request = UpdateArticleRequest(articleName = "Updated", count = 12),
+        )
+        secondInvalidation.await()
     }
 
     private fun seedJson(): String {

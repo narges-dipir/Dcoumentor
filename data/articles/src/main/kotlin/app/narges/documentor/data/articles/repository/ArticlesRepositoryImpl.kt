@@ -36,6 +36,27 @@ class ArticlesRepositoryImpl(
     private val localDataSource: ArticlesLocalDataSource,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ArticlesRepository {
+    override fun syncArticles(limit: Int): Flow<ResultState<Unit>> =
+        flow<ResultState<Unit>> {
+            var nextCursor: String? = null
+            do {
+                val remotePage = fetchWithRetry {
+                    remoteApi.getArticles(cursor = nextCursor, limit = limit)
+                }
+                if (remotePage.items.isNotEmpty()) {
+                    localDataSource.upsertArticles(remotePage.items)
+                }
+                nextCursor = remotePage.nextCursor
+            } while (nextCursor != null)
+
+            emit(ResultState.Success.Data(Unit))
+        }
+            .onStart { emit(ResultState.Loading) }
+            .catch { throwable ->
+                if (throwable is CancellationException) throw throwable
+                emit(throwable.toResultError())
+            }
+            .flowOn(ioDispatcher)
 
     override fun getArticles(cursor: String?, limit: Int): Flow<ResultState<ArticleCursorPage>> =
         flow<ResultState<ArticleCursorPage>> {

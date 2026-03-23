@@ -152,6 +152,9 @@ class ArticleCountViewModelTest {
             return getArticleResult
         }
 
+        override fun syncArticles(limit: Int): Flow<ResultState<Unit>> =
+            flowOf(ResultState.Success.Data(Unit))
+
         override fun createArticle(
             articleNumber: Int,
             articleName: String,

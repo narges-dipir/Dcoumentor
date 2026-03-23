@@ -16,6 +16,7 @@ android {
 dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:dispatcher"))
+    implementation(project(":core:worker"))
     implementation(project(":core:ui"))
     implementation(project(":data:articles"))
     implementation(project(":domain:articles"))
@@ -30,7 +31,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)

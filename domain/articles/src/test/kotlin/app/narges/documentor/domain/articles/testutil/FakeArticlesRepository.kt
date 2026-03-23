@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flowOf
 internal class FakeArticlesRepository : ArticlesRepository {
     var getArticlesResult: Flow<ResultState<ArticleCursorPage>> = flowOf(ResultState.Success.Empty)
     var getArticleResult: Flow<ResultState<Article>> = flowOf(ResultState.Success.Empty)
+    var syncArticlesResult: Flow<ResultState<Unit>> = flowOf(ResultState.Success.Data(Unit))
     var createArticleResult: Flow<ResultState<Article>> = flowOf(ResultState.Success.Empty)
     var updateArticleResult: Flow<ResultState<Article>> = flowOf(ResultState.Success.Empty)
 
@@ -27,6 +28,12 @@ internal class FakeArticlesRepository : ArticlesRepository {
 
     var getArticlesCallCount: Int = 0
     var getArticleCallCount: Int = 0
+    var syncArticlesCallCount: Int = 0
+
+    override fun syncArticles(limit: Int): Flow<ResultState<Unit>> {
+        syncArticlesCallCount += 1
+        return syncArticlesResult
+    }
 
     override fun getArticles(cursor: String?, limit: Int): Flow<ResultState<ArticleCursorPage>> {
         getArticlesCallCount += 1

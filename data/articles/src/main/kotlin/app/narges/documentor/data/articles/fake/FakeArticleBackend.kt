@@ -68,6 +68,7 @@ internal class FakeArticleBackend(
                 count = request.count,
             )
             articles += newRecord
+            FakeArticlesSyncInvalidationBus.notifyStoreChanged()
             return newRecord.toDto()
         }
     }
@@ -88,6 +89,7 @@ internal class FakeArticleBackend(
                 count = request.count ?: current.count,
             )
             articles[index] = updated
+            FakeArticlesSyncInvalidationBus.notifyStoreChanged()
             return updated.toDto()
         }
     }
