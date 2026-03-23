@@ -47,6 +47,8 @@ internal class FakeArticlesApi(
 ) : ArticlesApi {
     var getArticlesCalls: Int = 0
     var getArticleCalls: Int = 0
+    val getArticlesRequestedCursors: MutableList<String?> = mutableListOf()
+    var cursorPageResponses: Map<String?, ArticleCursorPageResponse>? = null
 
     var getArticlesFailuresRemaining: Int = 0
     var getArticlesFailure: Throwable? = null
@@ -56,6 +58,7 @@ internal class FakeArticlesApi(
 
     override suspend fun getArticles(cursor: String?, limit: Int): ArticleCursorPageResponse {
         getArticlesCalls += 1
+        getArticlesRequestedCursors += cursor
         if (getArticlesFailuresRemaining > 0) {
             getArticlesFailuresRemaining -= 1
             throw (getArticlesFailure ?: IOException("network"))
@@ -63,7 +66,10 @@ internal class FakeArticlesApi(
         if (getArticlesFailure is JsonSyntaxException) {
             throw getArticlesFailure as JsonSyntaxException
         }
-        return pageResponse.copy(cursor = cursor, limit = limit)
+
+        val cursorSpecific = cursorPageResponses?.get(cursor)
+        val response = cursorSpecific ?: pageResponse
+        return response.copy(cursor = cursor, limit = limit)
     }
 
     override suspend fun getArticle(articleNumber: Int): ArticleDTO {

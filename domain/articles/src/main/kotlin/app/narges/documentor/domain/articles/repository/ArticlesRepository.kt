@@ -10,6 +10,8 @@ interface ArticlesRepository {
 
     fun getArticle(articleNumber: Int): Flow<ResultState<Article>>
 
+    fun syncArticles(limit: Int = 50): Flow<ResultState<Unit>>
+
     fun createArticle(
         articleNumber: Int,
         articleName: String,

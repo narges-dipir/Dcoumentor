@@ -160,6 +160,9 @@ class ArticlesListViewModelTest {
 
         override fun getArticle(articleNumber: Int): Flow<ResultState<Article>> = flowOf(ResultState.Success.Empty)
 
+        override fun syncArticles(limit: Int): Flow<ResultState<Unit>> =
+            flowOf(ResultState.Success.Data(Unit))
+
         override fun createArticle(
             articleNumber: Int,
             articleName: String,

@@ -106,6 +106,40 @@ class ArticlesRepositoryImplTest {
         assertTrue(states[1] is ResultState.Error)
         assertEquals(1, api.getArticlesCalls)
     }
+
+    @Test
+    fun `syncArticles pulls all cursors and upserts into cache`() = runTest {
+        val dao = FakeArticleDao()
+        val api = FakeArticlesApi().apply {
+            cursorPageResponses = mapOf(
+                null to articlePageResponse(
+                    cursor = null,
+                    nextCursor = "2",
+                    items = listOf(
+                        articleDto(1000100, "Synced One", 1),
+                        articleDto(1000101, "Synced Two", null),
+                    ),
+                ),
+                "2" to articlePageResponse(
+                    cursor = "2",
+                    nextCursor = null,
+                    items = listOf(articleDto(1000102, "Synced Three", 7)),
+                ),
+            )
+        }
+        val repository = ArticlesRepositoryImpl(
+            remoteApi = api,
+            localDataSource = ArticlesLocalDataSource(dao),
+        )
+
+        val states = repository.syncArticles(limit = 2).take(2).toList()
+
+        assertTrue(states[0] is ResultState.Loading)
+        assertTrue(states[1] is ResultState.Success.Data)
+        assertEquals(listOf(null, "2"), api.getArticlesRequestedCursors)
+        assertEquals(3, dao.count())
+        assertEquals("Synced Three", dao.getByNumber(1000102)?.articleName)
+    }
 }
 
 private class FakeArticleDao : ArticleDao {
